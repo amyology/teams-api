@@ -1,0 +1,36 @@
+<div ng-app="app" class="center">
+
+  <h1>Sports Teams</h1>
+
+  <datalist id="teams">
+    <option ng-repeat="team in teams">{{ team.name }}</option>
+  </datalist>
+
+  <input ng-model="nameFilter" list="teams" placeholder="Search"><br><br>
+
+  <div ng-repeat="error in errors" style="color: red; font-style: italic; font-size: .8em">{{ error }}</div>
+  <input ng-model="teamName" placeholder="Name"> <br>
+  <input ng-model="teamCreature" placeholder="Creature"> <br>
+  <input ng-model="teamState" placeholder="State"> <br>
+  <input ng-model="teamSport" placeholder="Sport"> <br>
+  <button ng-click="addTeam(teamName,teamCreature,teamState,teamSport)">Add Team</button>
+
+<br><br>
+
+  <div class="table" ng-controller="teamsCtrl" ng-init="setup()">
+    <div class="row">
+      <div class="cell header" ng-click="sortBy('name')">TEAM NAME</div>
+      <div class="cell header" ng-click="sortBy('creature')">MASCOT</div>
+      <div class="cell header" ng-click="sortBy('state')">STATE</div>
+      <div class="cell header" ng-click="sortBy('sport')">SPORT</div>
+    </div>
+
+    <div class="row" ng-repeat="team in teams | filter:{name: nameFilter} | orderBy:orderAttribute:ascdesc track by $index">
+      <div class="cell">{{ team.name }}</div>
+      <div class="cell">{{ team.creature }}</div>
+      <div class="cell">{{ team.state }}</div>
+      <div class="cell">{{ team.sport }}</div>
+    </div>
+  </div>
+
+</div>
